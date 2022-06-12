@@ -1,6 +1,7 @@
 name: Build
 
 on:
+  push:
   workflow_dispatch:
 
 jobs:
@@ -27,7 +28,9 @@ jobs:
           make install
       - name: build ffmpeg
         run: |
+          pkg_config --exists --print-errors "sdl2 >= 2.0.1 sdl2 < 3.0.0"
           ln -s build/sdl2-config build/aarch64-w64-mingw32-sdl2-config
+          cat /usr/local/cross-tools/aarch64-w64-mingw32/lib/pkgconfig/sdl2.pc
           export PATH=$PATH:$PWD/build
           cd ffmpeg
           which aarch64-w64-mingw32-sdl2-config
