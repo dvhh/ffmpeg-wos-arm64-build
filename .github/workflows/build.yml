@@ -14,21 +14,21 @@ jobs:
         with:
           repository: libsdl-org/SDL
           path: sdl
-      - name: build-sdl
-        run: |
-          ./configure --host=aarch64-w64-mingw32
-          make -j16
-          make install
-          ln -s sdl2-config aarch64-w64-mingw32-sdl2-config
-          export PATH=$PATH:$PWD
-        working-directory: sdl
       - uses: actions/checkout@v3
         with:
           repository: FFmpeg/FFmpeg
           path: ffmpeg
-      - name: build-ffmpeg
+      - name: build-sdl
         run: |
+          mkdir build
+          pushd build
+          ../configure --host=aarch64-w64-mingw32
+          make -j16
+          make install
+          ln -s sdl2-config aarch64-w64-mingw32-sdl2-config
+          export PATH=$PATH:$PWD
+          popd
+          pushd ffmpeg
           ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32
           make -j16
           ls
-        working-directory: ffmpeg
