@@ -35,6 +35,9 @@ jobs:
           echo $PATH
           aarch64-w64-mingw32-sdl2-config --version
           which aarch64-w64-mingw32-sdl2-config
-          ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl
-          make -j16
-          ls
+          ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl || true
+          # make -j16
+          # ls
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ffmpeg/ffbuild/config.log
