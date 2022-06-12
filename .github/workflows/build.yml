@@ -29,6 +29,7 @@ jobs:
       - name: build ffmpeg
         run: |
           ln -s build/sdl2-config build/aarch64-w64-mingw32-sdl2-config
+          chmod +x build/sdl2-config build/aarch64-w64-mingw32-sdl2-config
           export PATH=$PATH:$PWD/build
           cd ffmpeg
           echo $PATH
