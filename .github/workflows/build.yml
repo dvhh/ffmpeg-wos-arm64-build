@@ -25,9 +25,11 @@ jobs:
           ../sdl/configure --host=aarch64-w64-mingw32
           make -j16
           make install
-          ln -s sdl2-config aarch64-w64-mingw32-sdl2-config
-          export PATH=$PATH:$PWD
-          cd ../ffmpeg
+      - name: build ffmpeg
+        run: |
+          ln -s build/sdl2-config build/aarch64-w64-mingw32-sdl2-config
+          export PATH=$PATH:$PWD/build
+          cd ffmpeg
           ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32
           make -j16
           ls
