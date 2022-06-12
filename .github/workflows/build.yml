@@ -30,6 +30,7 @@ jobs:
           ln -s build/sdl2-config build/aarch64-w64-mingw32-sdl2-config
           export PATH=$PATH:$PWD/build
           cd ffmpeg
+          which aarch64-w64-mingw32-sdl2-config
           ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl
           make -j16
           ls
