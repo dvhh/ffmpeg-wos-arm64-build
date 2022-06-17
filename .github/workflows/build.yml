@@ -21,9 +21,10 @@ jobs:
           path: ffmpeg
       - name: build-sdl
         run: |
+          mkdir sdl
           mkdir build
           cd build
-          ../sdl/configure --host=aarch64-w64-mingw32
+          ../sdl/configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/sdl
           make -j16
           make install
       - name: build ffmpeg
@@ -36,9 +37,10 @@ jobs:
           aarch64-w64-mingw32-sdl2-config --version
           which aarch64-w64-mingw32-sdl2-config
           aarch64-w64-mingw32-sdl2-config --cflags
-          ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl || true
+          ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc || true
           # make -j16
           # ls
+          tar cfz all.tar.gz ffmpeg sdl build sdl 
       - uses: actions/upload-artifact@v3
         with:
-          path: ${{ github.workspace }}
+          path: all.tar.gz
