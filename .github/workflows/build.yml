@@ -41,4 +41,7 @@ jobs:
           # ls
       - uses: actions/upload-artifact@v3
         with:
-          path: ffmpeg/ffbuild/config.log
+          path:
+            - ffmpeg
+            - sdl
+            - build
