@@ -35,11 +35,12 @@ jobs:
           cd ffmpeg
           grep 0x020100 ./configure
           sed -i 's/0x020100/0x030000/' ./configure
-          ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc || true
+          ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local
           make -j16
+          make install
       - name: archive
         run: |
-          tar cfz all.tar.gz ffmpeg
+          tar cfz all.tar.gz local/bin
       - uses: actions/upload-artifact@v3
         with:
-          path: all.tar.gz
+          path: all.tar.gz local/bin/SDL2.dll
