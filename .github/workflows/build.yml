@@ -38,6 +38,7 @@ jobs:
           # which aarch64-w64-mingw32-sdl2-config
           # aarch64-w64-mingw32-sdl2-config --cflags
           grep 0x020100 ./configure
+          ed -i 's/0x020100/0x030000/' ./configure
           #./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc || true
           #make -j16
           # ls
