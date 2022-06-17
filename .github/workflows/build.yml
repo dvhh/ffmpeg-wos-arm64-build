@@ -40,6 +40,7 @@ jobs:
           ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc || true
           # make -j16
           # ls
+          cd ..
           tar cfz all.tar.gz ffmpeg sdl build local 
       - uses: actions/upload-artifact@v3
         with:
