@@ -21,7 +21,7 @@ jobs:
           path: ffmpeg
       - name: build-sdl
         run: |
-          mkdir ${{ github.workspace }}/local
+          mkdir -p ${{ github.workspace }}/local
           mkdir build
           cd build
           ../sdl/configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local
