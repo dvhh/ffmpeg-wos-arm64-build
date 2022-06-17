@@ -21,7 +21,7 @@ jobs:
           path: ffmpeg
       - name: build-sdl
         run: |
-          mkdir local
+          mkdir ${{ github.workspace }}/local
           mkdir build
           cd build
           ../sdl/configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local
@@ -29,7 +29,7 @@ jobs:
           make install
       - name: archive
         run: |
-          tar cfz all.tar.gz local 
+          tar cfz all.tar.gz ${{ github.workspace }}/local 
       - uses: actions/upload-artifact@v3
         with:
           path: all.tar.gz
