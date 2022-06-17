@@ -27,17 +27,11 @@ jobs:
           ../sdl/configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local
           make -j16
           make install
-      - name: archive
-        run: |
-          tar cfz all.tar.gz ${{ github.workspace }}/local 
-      - uses: actions/upload-artifact@v3
-        with:
-          path: all.tar.gz
       - name: build ffmpeg
         run: |
-          ln -s $PWD/build/sdl2-config $PWD/build/aarch64-w64-mingw32-sdl2-config
-          chmod +x build/sdl2-config build/aarch64-w64-mingw32-sdl2-config
-          export PATH=$PATH:$PWD/build
+          ln -s ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
+          chmod +x ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
+          export PATH=$PATH:${{ github.workspace }}/local/bin
           cd ffmpeg
           echo $PATH
           aarch64-w64-mingw32-sdl2-config --version
@@ -46,3 +40,9 @@ jobs:
           ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc || true
           # make -j16
           # ls
+      - name: archive
+        run: |
+          tar cfz all.tar.gz ffmpeg
+      - uses: actions/upload-artifact@v3
+        with:
+          path: all.tar.gz
