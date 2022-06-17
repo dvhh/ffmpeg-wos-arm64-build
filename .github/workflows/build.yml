@@ -15,7 +15,6 @@ jobs:
         with:
           repository: libsdl-org/SDL
           path: sdl
-          ref: release-2.0.0
       - uses: actions/checkout@v3
         with:
           repository: FFmpeg/FFmpeg
@@ -35,11 +34,12 @@ jobs:
           export PATH=$PATH:${{ github.workspace }}/local/bin
           cd ffmpeg
           echo $PATH
-          aarch64-w64-mingw32-sdl2-config --version
-          which aarch64-w64-mingw32-sdl2-config
-          aarch64-w64-mingw32-sdl2-config --cflags
-          ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc || true
-          make -j16
+          # aarch64-w64-mingw32-sdl2-config --version
+          # which aarch64-w64-mingw32-sdl2-config
+          # aarch64-w64-mingw32-sdl2-config --cflags
+          grep 0x020100 ./configure
+          #./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc || true
+          #make -j16
           # ls
       - name: archive
         run: |
