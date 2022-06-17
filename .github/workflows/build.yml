@@ -41,7 +41,4 @@ jobs:
           # ls
       - uses: actions/upload-artifact@v3
         with:
-          path:
-            - ffmpeg
-            - sdl
-            - build
+          path: ${{ github.workspace }}
