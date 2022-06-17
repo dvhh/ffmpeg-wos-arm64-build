@@ -43,4 +43,4 @@ jobs:
           tar cfz all.tar.gz ${{ github.workspace }}/local/bin
       - uses: actions/upload-artifact@v3
         with:
-          path: all.tar.gz local/bin/SDL2.dll
+          path: all.tar.gz
