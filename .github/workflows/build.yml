@@ -45,4 +45,5 @@ jobs:
           # tar cfz all.tar.gz ${{ github.workspace }}/local/bin
       - uses: actions/upload-artifact@v3
         with:
+          name: ffmpeg-wos-arm64
           path: output
