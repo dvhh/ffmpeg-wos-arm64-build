@@ -45,7 +45,8 @@ jobs:
           
           cd ffmpeg
           # sed -i 's/0x020100/0x030000/' ./configure
-          PKG_CONFIG_PATH=${{ github.workspace }}/local/lib/pkgconfig ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local
+          export PKG_CONFIG_PATH=${{ github.workspace }}/local/lib/pkgconfig
+          ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local
           make -j16
           make install
       - name: archive
