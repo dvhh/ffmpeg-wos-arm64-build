@@ -32,8 +32,8 @@ jobs:
           make install
       - name: build ffmpeg
         run: |
-          mkdir -p /opt/llvm-mingw/aarch64-w64-mingw32/lib/pkgconfig
-          ln -s ${{ github.workspace }}/local/lib/pkgconfig/sdl2.pc /opt/llvm-mingw/aarch64-w64-mingw32/lib/pkgconfig/sdl2.pc
+          # mkdir -p /opt/llvm-mingw/aarch64-w64-mingw32/lib/pkgconfig
+          # ln -s ${{ github.workspace }}/local/lib/pkgconfig/sdl2.pc /opt/llvm-mingw/aarch64-w64-mingw32/lib/pkgconfig/sdl2.pc
           # ln -s ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
           # chmod +x ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
           # export PATH=$PATH:${{ github.workspace }}/local/bin
@@ -44,7 +44,7 @@ jobs:
           
           cd ffmpeg
           # sed -i 's/0x020100/0x030000/' ./configure
-          ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local
+          PKG_CONFIG_PATH=${{ github.workspace }}/local/lib/pkgconfig ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local
           make -j16
           make install
       - name: archive
