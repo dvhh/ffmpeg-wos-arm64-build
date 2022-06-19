@@ -23,6 +23,7 @@ jobs:
           path: ffmpeg
       - name: build-sdl
         run: |
+          echo ${{ github.workspace }}
           mkdir -p ${{ github.workspace }}/local
           mkdir build
           cd build
@@ -34,10 +35,10 @@ jobs:
           ln -s ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
           chmod +x ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
           export PATH=$PATH:${{ github.workspace }}/local/bin
+          curl https://download.videolan.org/pub/contrib/dxva2api.h -o /opt/llvm-mingw/aarch64-w64-mingw32/include/dxva2api.h
           cd ffmpeg
-          grep 0x020100 ./configure
           sed -i 's/0x020100/0x030000/' ./configure
-          ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local
+          ./configure --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --enable-dxva2 --prefix=${{ github.workspace }}/local
           make -j16
           make install
       - name: archive
