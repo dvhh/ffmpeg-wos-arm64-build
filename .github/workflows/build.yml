@@ -49,6 +49,7 @@ jobs:
       - name: archive
         run: |
           mkdir output
+          readlink -f output
           cp ${{ github.workspace }}/local/bin/*.exe ${{ github.workspace }}/local/bin/*.dll output
           # tar cfz all.tar.gz ${{ github.workspace }}/local/bin
       - uses: actions/upload-artifact@v3
