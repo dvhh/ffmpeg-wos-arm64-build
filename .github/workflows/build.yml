@@ -37,7 +37,8 @@ jobs:
           # ln -s ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
           # chmod +x ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
           # export PATH=$PATH:${{ github.workspace }}/local/bin
-          
+          apt update
+          apt install pkg-config
           # do not work check : https://trac.ffmpeg.org/wiki/HWAccelIntro#DXVA2
           # might need more than that
           # curl https://download.videolan.org/pub/contrib/dxva2api.h -o /opt/llvm-mingw/aarch64-w64-mingw32/include/dxva2api.h
