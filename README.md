@@ -13,3 +13,6 @@ Make static build of :
 from:
 - https://github.com/FFmpeg/FFmpeg 
 - https://github.com/libsdl-org/SDL
+
+See :
+- [build action](https://github.com/dvhh/ffmpeg-wos-arm64-build/actions/workflows/build.yml) to download latest build Artifacts
