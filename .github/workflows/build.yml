@@ -44,8 +44,13 @@ jobs:
           # sed -i 's/0x020100/0x030000/' ./configure
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
           ./configure --pkg-config=aarch64-w64-mingw32-pkg-config --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local || true
-          make -j16
-          make install
+          
+          # make -j16
+          # make install
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ffmpeg-log
+          path: ffmpeg/ffbuild/config.log
       - name: archive
         run: |
           mkdir output
