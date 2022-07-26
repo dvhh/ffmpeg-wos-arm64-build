@@ -54,7 +54,12 @@ jobs:
           readlink -f output
           cp ${{ github.workspace }}/local/bin/*.exe ${{ github.workspace }}/local/bin/*.dll output
           # tar cfz all.tar.gz ${{ github.workspace }}/local/bin
+          zip -r -D output.zip output
       - uses: actions/upload-artifact@v3
         with:
           name: ffmpeg-wos-arm64
           path: output
+      - uses: johnwbyrd/update-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: output.zip
