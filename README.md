@@ -15,4 +15,4 @@ from:
 - https://github.com/libsdl-org/SDL
 
 See :
-- [build action](https://github.com/dvhh/ffmpeg-wos-arm64-build/actions/workflows/build.yml) to download latest build Artifacts
+- [Release/main](https://github.com/dvhh/ffmpeg-wos-arm64-build/releases/tag/main) to download latest build Artifacts
