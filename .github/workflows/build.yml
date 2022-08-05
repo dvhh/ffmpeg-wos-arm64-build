@@ -54,7 +54,8 @@ jobs:
           readlink -f output
           cp ${{ github.workspace }}/local/bin/*.exe ${{ github.workspace }}/local/bin/*.dll output
           # tar cfz all.tar.gz ${{ github.workspace }}/local/bin
-          zip -r -D ffmpeg-wos-arm64.zip output
+          cd output
+          zip -r -D ../ffmpeg-wos-arm64.zip .
       - uses: johnwbyrd/update-release@v1.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
