@@ -17,6 +17,7 @@ jobs:
         with:
           repository: libsdl-org/SDL
           path: sdl
+          ref: SDL2
       - uses: actions/checkout@v3
         with:
           repository: FFmpeg/FFmpeg
