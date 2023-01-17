@@ -33,7 +33,7 @@ jobs:
           cd x264
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
           ./configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local --enable-pic
-          make -j16
+          CFLAGS="-mfpu=neon" make -j16
           make install
       - uses: actions/checkout@v3 
         with:
