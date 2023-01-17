@@ -2,7 +2,9 @@
 
 build for ffmpeg windows arm64
 
-Based off https://github.com/BtbN/FFmpeg-Builds/issues/95
+Based off :
+- https://github.com/BtbN/FFmpeg-Builds/issues/95
+- https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
 
 Make build of :
 
