@@ -32,8 +32,8 @@ jobs:
           git clone --depth=1 https://code.videolan.org/videolan/x264.git x264
           cd x264
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
-          ./configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local --enable-pic
-          CFLAGS="-mfpu=neon" make -j16
+          ./configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local --enable-pic --extra-cflags="-mfpu=neon"
+          make -j16
           make install
       - uses: actions/checkout@v3 
         with:
