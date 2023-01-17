@@ -18,10 +18,6 @@ jobs:
           repository: libsdl-org/SDL
           path: sdl
           ref: SDL2
-      - uses: actions/checkout@v3
-        with:
-          repository: FFmpeg/FFmpeg
-          path: ffmpeg
       - name: build-sdl
         run: |
           echo ${{ github.workspace }}
@@ -31,6 +27,21 @@ jobs:
           ../sdl/configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local
           make -j16
           make install
+      - uses: actions/checkout@v3
+        with:
+          repository: https://code.videolan.org/videolan/x264.git
+          path: x264
+      - name: build x264
+        run: |
+          cd x264
+          export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
+          ./configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local --enable-pic
+          make -j16
+          make install
+      - uses: actions/checkout@v3 
+        with:
+          repository: FFmpeg/FFmpeg
+          path: ffmpeg
       - name: build ffmpeg
         run: |
           # /opt/llvm-mingw/aarch64-w64-mingw32/
@@ -45,7 +56,7 @@ jobs:
           cd ffmpeg
           # sed -i 's/0x020100/0x030000/' ./configure
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
-          ./configure --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local --disable-static --enable-shared
+          ./configure --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local --disable-static --enable-shared --enable-libx264 --enable-gpl
           
           make -j16
           make install
