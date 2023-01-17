@@ -35,6 +35,7 @@ jobs:
           ./configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local --enable-pic --extra-cflags="-mfpu=neon" --cross-prefix=aarch64-w64-mingw32-
           make -j16
           make install
+          ls ${PKG_CONFIG_LIBDIR}
       - uses: actions/checkout@v3 
         with:
           repository: FFmpeg/FFmpeg
