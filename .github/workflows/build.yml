@@ -68,4 +68,4 @@ jobs:
       - uses: IsaacShelton/update-existing-release@v1.3.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          files: ffmpeg-wos-arm64-${{github.ref_name}}.zip
+          files: ffmpeg-wos-arm64.zip
