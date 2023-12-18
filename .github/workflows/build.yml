@@ -39,8 +39,12 @@ jobs:
         with:
           repository: FFmpeg/FFmpeg
           path: ffmpeg
+          # ref: 419145c11bb3310539eb975751291bcf023e9170
+          # d7ac7101ee8c70a253f7caf400d9ae3870880d7f is causing build issues, no gdigrab by window handle 
       - name: build ffmpeg
         run: |
+          # this commit is causing build issues
+          git revert d7ac7101ee8c70a253f7caf400d9ae3870880d7f 
           # /opt/llvm-mingw/aarch64-w64-mingw32/
           # ln -s ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
           # chmod +x ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
