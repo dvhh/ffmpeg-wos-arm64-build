@@ -40,8 +40,6 @@ jobs:
         with:
           repository: FFmpeg/FFmpeg
           path: ffmpeg
-          # ref: 419145c11bb3310539eb975751291bcf023e9170
-          # d7ac7101ee8c70a253f7caf400d9ae3870880d7f is causing build issues, no gdigrab by window handle 
       - name: build ffmpeg
         run: |
           # /opt/llvm-mingw/aarch64-w64-mingw32/
@@ -54,10 +52,9 @@ jobs:
           # curl https://download.videolan.org/pub/contrib/dxva2api.h -o /opt/llvm-mingw/aarch64-w64-mingw32/include/dxva2api.h
           
           cd ffmpeg
-          git apply ../revert-d7ac710.patch
+          # reverting d7ac7101ee8c70a253f7caf400d9ae3870880d7f 
           # this commit is causing build issues for dubious typecast, no way to consistently revert it without deep cloning repository
-          # git revert -n d7ac7101ee8c70a253f7caf400d9ae3870880d7f 
-          # sed -i 's/0x020100/0x030000/' ./configure
+          git apply ../revert-d7ac710.patch
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
           ./configure --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local --disable-static --enable-shared --enable-libx264 --enable-gpl --enable-nonfree
           
