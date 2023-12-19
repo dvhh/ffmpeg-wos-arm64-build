@@ -54,7 +54,7 @@ jobs:
           cd ffmpeg
           # reverting d7ac7101ee8c70a253f7caf400d9ae3870880d7f 
           # this commit is causing build issues for dubious typecast, no way to consistently revert it without deep cloning repository
-          git apply ../revert-d7ac710.patch
+          # git apply ../revert-d7ac710.patch
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
           ./configure --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local --disable-static --enable-shared --enable-libx264 --enable-gpl --enable-nonfree
           
