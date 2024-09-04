@@ -40,6 +40,7 @@ jobs:
         with:
           repository: FFmpeg/FFmpeg
           path: ffmpeg
+          ref: release/6.1
       - name: build ffmpeg
         run: |
           # /opt/llvm-mingw/aarch64-w64-mingw32/
