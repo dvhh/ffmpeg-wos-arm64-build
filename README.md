@@ -1,5 +1,7 @@
 # ffmpeg-wos-arm64-build
 
+TL;DR [Download zip](https://github.com/dvhh/ffmpeg-wos-arm64-build/releases/download/main/ffmpeg-wos-arm64.zip)
+
 Weekly build for ffmpeg windows arm64
 
 Based off :
