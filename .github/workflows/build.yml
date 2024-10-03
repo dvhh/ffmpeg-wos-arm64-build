@@ -38,7 +38,7 @@ jobs:
       - name: build x265
         run: |
           apt update
-          apt install -qy cmake yasm
+          apt install -qy cmake yasm cmake-curses-gui
           git clone https://bitbucket.org/multicoreware/x265_git.git x265
           cd x265/build/linux
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
