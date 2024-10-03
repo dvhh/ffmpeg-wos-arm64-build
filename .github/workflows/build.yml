@@ -35,6 +35,15 @@ jobs:
           ./configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local --enable-pic --extra-cflags="-mfpu=neon" --cross-prefix=aarch64-w64-mingw32- --enable-shared --enable-static
           make -j16
           make install
+      - name: build x265
+        run: |
+          git clone https://bitbucket.org/multicoreware/x265_git.git
+          cd x265/build/linux
+          export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
+          bash ./make-Makefiles.bash
+          make -j16
+          make install
+          
       - uses: actions/checkout@v3 
       - uses: actions/checkout@v3 
         with:
@@ -53,7 +62,7 @@ jobs:
           
           cd ffmpeg
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
-          ./configure --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local --disable-static --enable-shared --enable-libx264 --enable-gpl --enable-nonfree
+          ./configure --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local --disable-static --enable-shared --enable-libx264 --enable-libx265 --enable-gpl --enable-nonfree
           
           make -j16
           make install
