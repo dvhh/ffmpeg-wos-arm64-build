@@ -11,7 +11,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      image: mstorsjo/llvm-mingw:20230614
+      image: mstorsjo/llvm-mingw:20241001
     steps:
       - uses: actions/checkout@v3
         with:
@@ -32,7 +32,7 @@ jobs:
           git clone --depth=1 https://code.videolan.org/videolan/x264.git x264
           cd x264
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
-          ./configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local --enable-pic --extra-cflags="-mfpu=neon" --cross-prefix=aarch64-w64-mingw32- --enable-shared --enable-static
+          CFLAGS=-EL ./configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local --enable-pic --extra-cflags="-mfpu=neon" --cross-prefix=aarch64-w64-mingw32- --enable-shared --enable-static
           make -j16
           make install
       - uses: actions/checkout@v3 
