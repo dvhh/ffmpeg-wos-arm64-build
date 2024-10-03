@@ -42,7 +42,7 @@ jobs:
           git clone https://bitbucket.org/multicoreware/x265_git.git x265
           cd x265/build/linux
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
-          bash ./make-Makefiles.bash
+          cmake -G "Unix Makefiles" ../../source
           make -j16
           make install
           
