@@ -42,7 +42,7 @@ jobs:
           git clone https://bitbucket.org/multicoreware/x265_git.git x265
           cd x265/build/linux
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
-          cmake -G "MINGW Makefiles" ../../source
+          cmake -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/aarch64-w64-mingw32.cmake -DCMAKE_INSTALL_PREFIX="${{ github.workspace }}/local" -DCMAKE_BUILD_TYPE=Release -DCMAKE_ASM_NASM_FLAGS=-w-macro-params-legacy ../../source
           make -j16
           make install
           
