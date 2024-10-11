@@ -41,7 +41,7 @@ jobs:
           env
           pwd
           ls
-          ls ${{ github.workspace }}/aarch64-w64-mingw32.cmake
+          ls "${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake"
           apt update
           apt install -qy cmake yasm cmake-curses-gui
           git clone https://bitbucket.org/multicoreware/x265_git.git x265
