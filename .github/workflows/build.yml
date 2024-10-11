@@ -45,7 +45,7 @@ jobs:
           echo "${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake"
           ls "${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake"
           apt update
-          apt install -qy cmake yasm cmake-curses-gui windres
+          apt install -qy cmake yasm cmake-curses-gui binutils-mingw-w64-x86-64
           git clone https://bitbucket.org/multicoreware/x265_git.git x265
           cd x265/build/linux
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
