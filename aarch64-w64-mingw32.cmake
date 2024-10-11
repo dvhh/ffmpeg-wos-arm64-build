@@ -1,5 +1,6 @@
 # Use with CMAKE_TOOLCHAIN_FILE
 # See: https://cmake.org/cmake/help/book/mastering-cmake/chapter/Cross%20Compiling%20With%20CMake.html
+# See: https://bitbucket.org/multicoreware/x265_git/wiki/CrossCompile
 # the name of the target operating system
 set(CMAKE_SYSTEM_NAME Windows)
 
