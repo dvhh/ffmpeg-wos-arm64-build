@@ -38,6 +38,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: build x265
         run: |
+          env
           pwd
           ls
           ls ${{ github.workspace }}/aarch64-w64-mingw32.cmake
