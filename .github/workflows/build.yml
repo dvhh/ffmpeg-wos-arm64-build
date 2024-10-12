@@ -16,6 +16,9 @@ jobs:
             ref: SDL2
           - name: x264
           - name: x265
+          - name: ogg
+            repository: xiph/ogg
+            ref: v1.3.5
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
@@ -61,12 +64,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: x265
+      - name: get ogg
+        uses: actions/download-artifact@v4
+        with:
+          name: ogg
       - name: extract achives
         run: |
           mkdir -p ${{ github.workspace }}
           tar xvzf sdl2-aarch64-w64.tar.gz -C ${{ github.workspace }}
           tar xvzf x264-aarch64-w64.tar.gz -C ${{ github.workspace }}
           tar xvzf x265-aarch64-w64.tar.gz -C ${{ github.workspace }}
+          tar xvzf ogg-aarch64-w64.tar.gz -C ${{ github.workspace }}
       - uses: actions/checkout@v4
         with:
           repository: FFmpeg/FFmpeg
