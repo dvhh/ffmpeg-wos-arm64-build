@@ -33,7 +33,7 @@ jobs:
         uses: ./.github/workflows/actions/archive
         with:
           base-path: ${{ github.workspace }}
-          input-path: local
+          source-path: local
           output-path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
       - name: upload-archive
         uses: actions/upload-artifact@v4
@@ -47,6 +47,7 @@ jobs:
     env:
       archive_prefix: x264
     steps:  
+      - uses: actions/checkout@v4
       - name: build x264
         run: |
           git clone --depth=1 https://code.videolan.org/videolan/x264.git x264
@@ -56,7 +57,11 @@ jobs:
           make -j16
           make install
       - name: archive
-        run: tar cvzf ${{ env.archive_prefix }}-aarch64-w64.tar.gz -C ${{ github.workspace }} local
+        uses: ./.github/workflows/actions/archive
+        with:
+          base-path: ${{ github.workspace }}
+          source-path: local
+          output-path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
       - name: upload-archive
         uses: actions/upload-artifact@v4
         with:
@@ -88,7 +93,11 @@ jobs:
           make -j16
           make install
       - name: archive
-        run: tar cvzf ${{ env.archive_prefix }}-aarch64-w64.tar.gz -C ${{ github.workspace }} local
+        uses: ./.github/workflows/actions/archive
+        with:
+          base-path: ${{ github.workspace }}
+          source-path: local
+          output-path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
       - name: upload-archive
         uses: actions/upload-artifact@v4
         with:
