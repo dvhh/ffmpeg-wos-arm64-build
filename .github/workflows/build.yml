@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
+    env:
+      archive_prefix: sdl2
     steps:
       - uses: actions/checkout@v3
         with:
@@ -27,20 +29,18 @@ jobs:
           make -j16
           make install
       - name: archive
-        uses: ihiroky/archive-action@v1
-        with:
-          root_dir: ${{ github.workspace }}/local
-          base_dir: ${{ github.workspace }}
-          file_path: sdl2-aarch64-w64.tar.gz
+        run: tar cvzf ${{ env.archive_prefix }}-aarch64-w64.tar.gz -C ${{ github.workspace }} local
       - name: upload-archive
         uses: actions/upload-artifact@v4
         with:
-          name: sdl2
-          path: sdl2-aarch64-w64.tar.gz
+          name: ${{ env.archive_prefix }}
+          path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
   build-x264:
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
+    env:
+      archive_prefix: x264
     steps:  
       - name: build x264
         run: |
@@ -51,20 +51,18 @@ jobs:
           make -j16
           make install
       - name: archive
-        uses: ihiroky/archive-action@v1
-        with:
-          root_dir: ${{ github.workspace }}/local
-          base_dir: ${{ github.workspace }}
-          file_path: x264-aarch64-w64.tar.gz
+        run: tar cvzf ${{ env.archive_prefix }}-aarch64-w64.tar.gz -C ${{ github.workspace }} local
       - name: upload-archive
         uses: actions/upload-artifact@v4
         with:
-          name: x264
-          path: x264-aarch64-w64.tar.gz
+          name: ${{ env.archive_prefix }}
+          path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
   build-x265:
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
+    env:
+      archive_prefix: x265
     steps:  
       - uses: actions/checkout@v3
       - name: build x265
@@ -85,16 +83,12 @@ jobs:
           make -j16
           make install
       - name: archive
-        uses: ihiroky/archive-action@v1
-        with:
-          root_dir: ${{ github.workspace }}/local
-          base_dir: ${{ github.workspace }}
-          file_path: x265-aarch64-w64.tar.gz
+        run: tar cvzf ${{ env.archive_prefix }}-aarch64-w64.tar.gz -C ${{ github.workspace }} local
       - name: upload-archive
         uses: actions/upload-artifact@v4
         with:
-          name: x265
-          path: x265-aarch64-w64.tar.gz
+          name: ${{ env.archive_prefix }}
+          path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
   build-ffmpeg:
     runs-on: ubuntu-latest
     needs:
