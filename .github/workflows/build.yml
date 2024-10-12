@@ -29,7 +29,11 @@ jobs:
           make -j16
           make install
       - name: archive
-        run: tar cvzf ${{ env.archive_prefix }}-aarch64-w64.tar.gz -C ${{ github.workspace }} local
+        uses: ./.github/workflows/archive.yml
+        with:
+          base-path: ${{ github.workspace }}
+          input-path: local
+          output-path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
       - name: upload-archive
         uses: actions/upload-artifact@v4
         with:
