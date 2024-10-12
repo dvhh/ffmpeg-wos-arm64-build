@@ -25,7 +25,7 @@ jobs:
           path: ${{ matrix.name }}
           ref: ${{ matrix.ref }}
       - name: build
-        run: scripts/build-${{ matrix.name }}.sh
+        run: scripts/build-${{ matrix.name }}.sh ${{ github.workspace }}/local
         shell: bash
       - name: archive
         uses: ./.github/workflows/actions/archive
@@ -38,38 +38,6 @@ jobs:
         with:
           name: ${{ matrix.name }}
           path: ${{ matrix.name }}-aarch64-w64.tar.gz
-  build-SDL2:
-    runs-on: ubuntu-latest
-    container:
-      image: mstorsjo/llvm-mingw:20241001
-    env:
-      archive_prefix: sdl2
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
-        with:
-          repository: libsdl-org/SDL
-          path: sdl
-          ref: SDL2
-      - name: build-sdl
-        run: |
-          mkdir -p ${{ github.workspace }}/local
-          mkdir build
-          cd build
-          ../sdl/configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local
-          make -j16
-          make install
-      - name: archive
-        uses: ./.github/workflows/actions/archive
-        with:
-          base-path: ${{ github.workspace }}
-          source-path: local
-          output-path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
-      - name: upload-archive
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.archive_prefix }}
-          path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
   build-x264:
     runs-on: ubuntu-latest
     container:
