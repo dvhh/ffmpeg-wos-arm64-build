@@ -64,7 +64,6 @@ jobs:
     env:
       archive_prefix: x265
     steps:
-      - uses: actions/checkout@v4
       - name: build x265
         run: |
           # env
