@@ -18,6 +18,7 @@ from:
 - https://github.com/FFmpeg/FFmpeg 
 - https://github.com/libsdl-org/SDL
 - https://code.videolan.org/videolan/x264
+- https://www.videolan.org/developers/x265.html
 
 See :
 - [Release/main](https://github.com/dvhh/ffmpeg-wos-arm64-build/releases/tag/main) to download latest build Artifacts
