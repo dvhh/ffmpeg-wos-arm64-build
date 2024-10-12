@@ -113,6 +113,7 @@ jobs:
           name: x265
       - name: extract achives
         run: |
+          mkdir -p ${{ github.workspace }}
           tar xvzf sdl2-aarch64-w64.tar.gz -C ${{ github.workspace }}
           tar xvzf x264-aarch64-w64.tar.gz -C ${{ github.workspace }}
           tar xvzf x265-aarch64-w64.tar.gz -C ${{ github.workspace }}
