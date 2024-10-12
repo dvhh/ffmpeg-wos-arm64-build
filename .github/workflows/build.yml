@@ -14,7 +14,7 @@ jobs:
     env:
       archive_prefix: sdl2
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: libsdl-org/SDL
           path: sdl
@@ -64,7 +64,7 @@ jobs:
     env:
       archive_prefix: x265
     steps:  
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: build x265
         run: |
           # env
@@ -98,7 +98,7 @@ jobs:
     container:
       image: mstorsjo/llvm-mingw:20241001
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: get sdl2
         uses: actions/download-artifact@v4
         with:
