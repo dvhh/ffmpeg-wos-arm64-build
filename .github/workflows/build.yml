@@ -7,8 +7,7 @@ on:
     - cron: 0 0 * * 1
 
 jobs:
-  build:
-    # The type of runner that the job will run on
+  build-SDL2:
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
@@ -27,6 +26,22 @@ jobs:
           ../sdl/configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local
           make -j16
           make install
+      - name: archive
+        uses: ihiroky/archive-action@v1
+        with:
+          root_dir: ${{ github.workspace }}/local
+          base_dir: ${{ github.workspace }}
+          file_path: sdl2-aarch64-w64.tar.gz
+      - name: upload-archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdl2
+          path: sdl2-aarch64-w64.tar.gz
+  build-x264:
+    runs-on: ubuntu-latest
+    container:
+      image: mstorsjo/llvm-mingw:20241001
+    steps:  
       - name: build x264
         run: |
           git clone --depth=1 https://code.videolan.org/videolan/x264.git x264
@@ -35,6 +50,22 @@ jobs:
           ./configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local --enable-pic --enable-lto --cross-prefix=aarch64-w64-mingw32- --enable-shared --enable-static
           make -j16
           make install
+      - name: archive
+        uses: ihiroky/archive-action@v1
+        with:
+          root_dir: ${{ github.workspace }}/local
+          base_dir: ${{ github.workspace }}
+          file_path: x264-aarch64-w64.tar.gz
+      - name: upload-archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: x264
+          path: x264-aarch64-w64.tar.gz
+  build-x265:
+    runs-on: ubuntu-latest
+    container:
+      image: mstorsjo/llvm-mingw:20241001
+    steps:  
       - uses: actions/checkout@v3
       - name: build x265
         run: |
@@ -45,14 +76,51 @@ jobs:
           echo "${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake"
           ls "${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake"
           apt update
-          apt install -qy cmake yasm cmake-curses-gui binutils-mingw-w64-x86-64
-          ln -s /usr/bin/x86_64-w64-mingw32-windres /bin/windres
+          apt install -qy cmake yasm cmake-curses-gui
+          ln -s /opt/llvm-mingw/bin/aarch64-w64-mingw32-windres /bin/windres
           git clone https://bitbucket.org/multicoreware/x265_git.git x265 -b stable
           cd x265/build/linux
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
           cmake -DCMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake" -DCMAKE_INSTALL_PREFIX="${{ github.workspace }}/local" -DCMAKE_BUILD_TYPE=Release -DCMAKE_ASM_NASM_FLAGS=-w-macro-params-legacy ../../source
           make -j16
-          make install          
+          make install
+      - name: archive
+        uses: ihiroky/archive-action@v1
+        with:
+          root_dir: ${{ github.workspace }}/local
+          base_dir: ${{ github.workspace }}
+          file_path: x265-aarch64-w64.tar.gz
+      - name: upload-archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: x265
+          path: x265-aarch64-w64.tar.gz
+  build-ffmpeg:
+    runs-on: ubuntu-latest
+    needs:
+      - build-SDL2
+      - build-x264
+      - build-x265
+    container:
+      image: mstorsjo/llvm-mingw:20241001
+    steps:
+      - name: get sdl2
+        uses: actions/download-artifact@v4
+        with:
+          name: sdl2
+      - name: get x264
+        uses: actions/download-artifact@v4
+        with:
+          name: x264
+      - name: get x265
+        uses: actions/download-artifact@v4
+        with:
+          name: x265
+      - name: extract achives
+        run: |
+          tar xvzf sdl2-aarch64-w64.tar.gz -C ${{ github.workspace }}
+          tar xvzf x264-aarch64-w64.tar.gz -C ${{ github.workspace }}
+          tar xvzf x265-aarch64-w64.tar.gz -C ${{ github.workspace }}
       - uses: actions/checkout@v3
         with:
           repository: FFmpeg/FFmpeg
