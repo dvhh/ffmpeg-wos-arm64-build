@@ -25,7 +25,7 @@ jobs:
           path: ${{ matrix.name }}
           ref: ${{ matrix.ref }}
       - name: build
-        run: scripts/build-${{ matrix.name }}.sh ${{ github.workspace }}/local
+        run: bash scripts/build-${{ matrix.name }}.sh ${{ github.workspace }}/local
         shell: bash
       - name: archive
         uses: ./.github/workflows/actions/archive
