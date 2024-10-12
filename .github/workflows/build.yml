@@ -41,7 +41,7 @@ jobs:
           ref: ${{ matrix.ref }}
         if: ${{ matrix.repository != null }}
       - name: build
-        run: bash scripts/build-${{ matrix.name }}.sh ${{ github.workspace }}/local ${matrix.host}
+        run: bash scripts/build-${{ matrix.name }}.sh "${{ github.workspace }}/local" "${{ matrix.host }}"
         shell: bash
       - name: archive
         uses: ./.github/actions/archive
