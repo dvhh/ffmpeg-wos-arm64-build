@@ -10,11 +10,6 @@ jobs:
   build-dependencies:
     strategy:
       matrix:
-        name:
-          - sdl2
-          - ogg
-          - x264
-          - x265
         host:
           - aarch64-w64-mingw32
         include:
@@ -26,8 +21,10 @@ jobs:
           - name: ogg
             repository: xiph/ogg
             ref: v1.3.5
-          - name: vorbis
-            repository: xiph/vorbis
+          ## TODO(dvhh) need to wait for ogg
+          #- name: vorbis
+          #  repository: xiph/vorbis
+          #  ref: v1.3.7
 
     runs-on: ubuntu-latest
     container:
