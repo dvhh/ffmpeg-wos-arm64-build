@@ -118,7 +118,7 @@ jobs:
       - name: upload-archive
         uses: actions/upload-artifact@v4
         with:
-          name: ffmpeg
+          name: ffmpeg-${{ matrix.host }}
           path: ffmpeg-${{ matrix.os}}-${{ matrix.arch }}.zip
   update-release:
     strategy:
