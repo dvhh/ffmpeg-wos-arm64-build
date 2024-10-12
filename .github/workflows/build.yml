@@ -1,12 +1,43 @@
 name: Build
 
 on:
-  push:
+  # push:
   workflow_dispatch:
   schedule:
     - cron: 0 0 * * 1
 
 jobs:
+  build-github-hosted:
+    strategy:
+      matrix:
+        include:
+          - name: sdl2
+            repository: libsdl-org/SDL
+            ref: SDL2
+    runs-on: ubuntu-latest
+    container:
+      image: mstorsjo/llvm-mingw:20241001
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repository }}
+          path: ${{ matrix.name }}
+          ref: ${{ matrix.ref }}
+      - name: build
+        run: scripts/build-${{ matrix.name }}.sh
+        shell: bash
+      - name: archive
+        uses: ./.github/workflows/actions/archive
+        with:
+          base-path: ${{ github.workspace }}
+          source-path: local
+          output-path: ${{ matrix.name }}-aarch64-w64.tar.gz
+      - name: upload-archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}
+          path: ${{ matrix.name }}-aarch64-w64.tar.gz
   build-SDL2:
     runs-on: ubuntu-latest
     container:
