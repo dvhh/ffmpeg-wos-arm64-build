@@ -117,7 +117,7 @@ jobs:
           tar xvzf sdl2-aarch64-w64.tar.gz -C ${{ github.workspace }}
           tar xvzf x264-aarch64-w64.tar.gz -C ${{ github.workspace }}
           tar xvzf x265-aarch64-w64.tar.gz -C ${{ github.workspace }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: FFmpeg/FFmpeg
           path: ffmpeg
