@@ -16,12 +16,10 @@ on:
         required: false
         default: output.tar.gz
         type: string
-
-jobs:
-  archive:
-    runs-on: ubuntu-latest
-    steps:
-      - name: create-archive
-        run: tar cvzf ${{inputs.output-path}} -C ${{inputs.base-path}} ${{source-path}}
+runs:
+  using: "composite"
+  steps:
+    - name: create-archive
+      run: tar cvzf ${{inputs.output-path}} -C ${{inputs.base-path}} ${{source-path}}
       
       
