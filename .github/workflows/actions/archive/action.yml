@@ -1,20 +1,21 @@
 ---
 name: Archive
 description: create tar.gz archive
-on:
-  workflow_call:
-    inputs:
-      base-path:  # base path, will not get included in the archive
-        required: true
-        type: string
-      source-path:  # relative path to be archived
-        required: false
-        default: .
-        type: string
-      output-path: # output archive name
-        required: false
-        default: output.tar.gz
-        type: string
+inputs:
+  base-path:
+    description: base path, will not get included in the archive
+    required: true
+    type: string
+  source-path:
+    description: relative path to be archived
+    required: false
+    default: .
+    type: string
+  output-path:
+    description: output archive name
+    required: false
+    default: output.tar.gz
+    type: string
 
 runs:
   using: "composite"
