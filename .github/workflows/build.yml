@@ -7,13 +7,15 @@ on:
     - cron: 0 0 * * 1
 
 jobs:
-  build-github-hosted:
+  build-dependencies:
     strategy:
       matrix:
         include:
           - name: sdl2
             repository: libsdl-org/SDL
             ref: SDL2
+          - name: x264
+          - name: x265
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
@@ -24,32 +26,8 @@ jobs:
           repository: ${{ matrix.repository }}
           path: ${{ matrix.name }}
           ref: ${{ matrix.ref }}
+        if: ${{ matrix.repository != null }}
       - name: build
-        run: bash scripts/build-${{ matrix.name }}.sh ${{ github.workspace }}/local
-        shell: bash
-      - name: archive
-        uses: ./.github/actions/archive
-        with:
-          base-path: ${{ github.workspace }}
-          source-path: local
-          output-path: ${{ matrix.name }}-aarch64-w64.tar.gz
-      - name: upload-archive
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.name }}
-          path: ${{ matrix.name }}-aarch64-w64.tar.gz
-  build-external:
-    strategy:
-      matrix:
-        name: 
-          - x264
-          - x265
-    runs-on: ubuntu-latest
-    container:
-      image: mstorsjo/llvm-mingw:20241001
-    steps:  
-      - uses: actions/checkout@v4
-      - name: build 
         run: bash scripts/build-${{ matrix.name }}.sh ${{ github.workspace }}/local
         shell: bash
       - name: archive
@@ -66,8 +44,7 @@ jobs:
   build-ffmpeg:
     runs-on: ubuntu-latest
     needs:
-      - build-github-hosted
-      - build-external
+      - build-dependencies
     container:
       image: mstorsjo/llvm-mingw:20241001
     steps:
