@@ -26,6 +26,9 @@ jobs:
           - name: ogg
             repository: xiph/ogg
             ref: v1.3.5
+          - name: vorbis
+            repository: xiph/vorbis
+
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
@@ -38,7 +41,7 @@ jobs:
           ref: ${{ matrix.ref }}
         if: ${{ matrix.repository != null }}
       - name: build
-        run: bash scripts/build-${{ matrix.name }}.sh ${{ github.workspace }}/local
+        run: bash scripts/build-${{ matrix.name }}.sh ${{ github.workspace }}/local ${matrix.host}
         shell: bash
       - name: archive
         uses: ./.github/actions/archive
