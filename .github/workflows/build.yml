@@ -29,7 +29,7 @@ jobs:
           make -j16
           make install
       - name: archive
-        uses: ./.github/workflows/archive.yml
+        uses: ./.github/workflows/actions/archive
         with:
           base-path: ${{ github.workspace }}
           input-path: local
