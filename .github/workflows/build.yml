@@ -98,6 +98,7 @@ jobs:
     container:
       image: mstorsjo/llvm-mingw:20241001
     steps:
+      - uses: actions/checkout@v3
       - name: get sdl2
         uses: actions/download-artifact@v4
         with:
