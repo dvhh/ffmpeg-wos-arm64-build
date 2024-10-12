@@ -106,7 +106,7 @@ jobs:
   build-ffmpeg:
     runs-on: ubuntu-latest
     needs:
-      - build-SDL2
+      - build-github-hosted
       - build-x264
       - build-x265
     container:
