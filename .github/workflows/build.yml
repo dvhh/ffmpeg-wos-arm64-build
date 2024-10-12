@@ -28,7 +28,7 @@ jobs:
         run: bash scripts/build-${{ matrix.name }}.sh ${{ github.workspace }}/local
         shell: bash
       - name: archive
-        uses: ./.github/workflows/actions/archive
+        uses: ./.github/actions/archive
         with:
           base-path: ${{ github.workspace }}
           source-path: local
@@ -38,71 +38,31 @@ jobs:
         with:
           name: ${{ matrix.name }}
           path: ${{ matrix.name }}-aarch64-w64.tar.gz
-  build-x264:
+  build-external:
+    strategy:
+      matrix:
+        name: 
+          - x264
+          - x265
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
-    env:
-      archive_prefix: x264
     steps:  
       - uses: actions/checkout@v4
-      - name: build x264
-        run: |
-          mkdir -p ${{ github.workspace }}/local
-          git clone --depth=1 https://code.videolan.org/videolan/x264.git x264
-          cd x264
-          export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
-          ./configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local --enable-pic --enable-lto --cross-prefix=aarch64-w64-mingw32- --enable-shared --enable-static
-          make -j16
-          make install
+      - name: build 
+        run: bash scripts/build-${{ matrix.name }}.sh ${{ github.workspace }}/local
+        shell: bash
       - name: archive
-        uses: ./.github/workflows/actions/archive
+        uses: ./.github/actions/archive
         with:
           base-path: ${{ github.workspace }}
           source-path: local
-          output-path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
+          output-path: ${{ matrix.name }}-aarch64-w64.tar.gz
       - name: upload-archive
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.archive_prefix }}
-          path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
-  build-x265:
-    runs-on: ubuntu-latest
-    container:
-      image: mstorsjo/llvm-mingw:20241001
-    env:
-      archive_prefix: x265
-    steps:
-      - uses: actions/checkout@v4
-      - name: build x265
-        run: |
-          # env
-          # pwd
-          # ls
-          echo "${{ github.workspace }}"
-          echo "${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake"
-          ls "${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake"
-          mkdir -p ${{ github.workspace }}/local
-          apt update
-          apt install -qy cmake yasm cmake-curses-gui
-          ln -s /opt/llvm-mingw/bin/aarch64-w64-mingw32-windres /bin/windres
-          git clone https://bitbucket.org/multicoreware/x265_git.git x265 -b stable
-          cd x265/build/linux
-          export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
-          cmake -DCMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake" -DCMAKE_INSTALL_PREFIX="${{ github.workspace }}/local" -DCMAKE_BUILD_TYPE=Release -DCMAKE_ASM_NASM_FLAGS=-w-macro-params-legacy ../../source
-          make -j16
-          make install
-      - name: archive
-        uses: ./.github/workflows/actions/archive
-        with:
-          base-path: ${{ github.workspace }}
-          source-path: local
-          output-path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
-      - name: upload-archive
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.archive_prefix }}
-          path: ${{ env.archive_prefix }}-aarch64-w64.tar.gz
+          name: ${{ matrix.name }}
+          path: ${{ matrix.name }}-aarch64-w64.tar.gz
   build-ffmpeg:
     runs-on: ubuntu-latest
     needs:
