@@ -22,7 +22,6 @@ jobs:
           ref: SDL2
       - name: build-sdl
         run: |
-          echo ${{ github.workspace }}
           mkdir -p ${{ github.workspace }}/local
           mkdir build
           cd build
@@ -50,6 +49,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: build x264
         run: |
+          mkdir -p ${{ github.workspace }}/local
           git clone --depth=1 https://code.videolan.org/videolan/x264.git x264
           cd x264
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
@@ -83,6 +83,7 @@ jobs:
           echo "${{ github.workspace }}"
           echo "${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake"
           ls "${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake"
+          mkdir -p ${{ github.workspace }}/local
           apt update
           apt install -qy cmake yasm cmake-curses-gui
           ln -s /opt/llvm-mingw/bin/aarch64-w64-mingw32-windres /bin/windres
@@ -137,11 +138,6 @@ jobs:
           path: ffmpeg
       - name: build ffmpeg
         run: |
-          # /opt/llvm-mingw/aarch64-w64-mingw32/
-          # ln -s ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
-          # chmod +x ${{ github.workspace }}/local/bin/sdl2-config ${{ github.workspace }}/local/bin/aarch64-w64-mingw32-sdl2-config
-          # export PATH=$PATH:${{ github.workspace }}/local/bin
-
           # do not work check : https://trac.ffmpeg.org/wiki/HWAccelIntro#DXVA2
           # might need more than that
           # curl https://download.videolan.org/pub/contrib/dxva2api.h -o /opt/llvm-mingw/aarch64-w64-mingw32/include/dxva2api.h
