@@ -128,7 +128,22 @@ jobs:
           
           cd ffmpeg
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
-          ./configure --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig --cross-prefix=${{ matrix.host }}- --arch=${{ matrix.arch }} --target-os=${{ matrix.os }} --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local --disable-static --enable-shared --enable-libx264 --enable-libx265 --enable-gpl --enable-nonfree
+          ./configure \
+            --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config \
+            --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig \
+            --cross-prefix=${{ matrix.host }}- \
+            --arch=${{ matrix.arch }} \
+            --target-os=${{ matrix.os }} [
+            --enable-sdl \
+            --disable-doc \
+            --prefix=${{ github.workspace }}/local \
+            --disable-static \
+            --enable-shared \
+            --enable-libx264 \
+            --enable-libx265 \
+            --enable-gpl \
+            --enable-nonfree \
+            --enable-libvorbis
           
           make -j16
           make install
