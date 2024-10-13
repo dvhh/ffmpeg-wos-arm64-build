@@ -54,15 +54,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           download: false
         if: ${{matrix.depends != null}}
-      - name: download dependency
-        uses: actions/download-artifact@v4
+      - name: extract dependency
+        uses: ./.github/actions/extract-artifact
         with:
           name: ${{matrix.depends}}-${{ matrix.host }}
-        if: ${{matrix.depends != null}}
-      - name: unpack dependency
-        run: |
-          mkdir -p ${{ github.workspace }}
-          tar xvzf ${{matrix.depends}}-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
+          target: ${{ github.workspace }}
         if: ${{matrix.depends != null}}
       - uses: actions/checkout@v4
         with:
