@@ -47,7 +47,12 @@ jobs:
         with:
           artifact: ${{matrix.depends}}-${{ matrix.host }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          download: true
+          download: false
+        if: ${{matrix.depends != null}}
+      - name: download dependency
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{matrix.depends}}-${{ matrix.host }}
         if: ${{matrix.depends != null}}
       - name: unpack dependency
         run: tar xvzf ${{matrix.depends}}-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
