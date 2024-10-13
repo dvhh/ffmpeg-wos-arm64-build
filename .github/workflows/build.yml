@@ -157,8 +157,8 @@ jobs:
             --enable-libx265 \
             --enable-gpl \
             --enable-nonfree \
-            --enable-libvorbis
-          
+            --enable-libvorbis \
+            --enable-version3 --enable-libvmaf 
           make -j16
           make install
       - name: archive
