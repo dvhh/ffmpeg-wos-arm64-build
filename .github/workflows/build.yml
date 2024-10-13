@@ -16,7 +16,7 @@ jobs:
           - x265
           - ogg
           - vorbis
-          - vamf
+          - vmaf
         host:
           - aarch64-w64-mingw32
         include:
@@ -115,7 +115,7 @@ jobs:
       - name: get vamf
         uses: actions/download-artifact@v4
         with:
-          name: vamf-${{ matrix.host }}
+          name: vmaf-${{ matrix.host }}
 
       - name: extract achives
         run: |
@@ -125,7 +125,7 @@ jobs:
           tar xvzf x265-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
           tar xvzf ogg-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
           tar xvzf vorbis-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
-          tar xvzf vamf-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
+          tar xvzf vmaf-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
       - uses: actions/checkout@v4
         with:
           repository: FFmpeg/FFmpeg
