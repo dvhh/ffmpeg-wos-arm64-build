@@ -64,7 +64,8 @@ runs:
         jq --arg artifact "${{ inputs.artifact }}" '.artifacts[] | select( .name == $artifact) | .archive_download_url' |\
         if read url
         then
-          curl -s url | unzip -
+          curl -s url -o artifacts.zip
+          unzip artifacts.zip
         else
           exit 1
         fi
