@@ -52,7 +52,7 @@ runs:
         rm result.json
       shell: bash
     - name: download
-      if: ${{ inputs.download }}
+      if: ${{ inputs.download == true }}
       shell: bash
       run: |
         echo ${{ inputs.download }}
