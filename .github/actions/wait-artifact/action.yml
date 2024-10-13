@@ -65,7 +65,7 @@ runs:
         if read url
         then
           echo $url
-          curl -s url -o artifacts.zip
+          curl -s $url -o artifacts.zip
           unzip artifacts.zip
           rm artifacts.zip
         else
