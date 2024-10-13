@@ -33,3 +33,4 @@ runs:
           break
           sleep 10
         done
+      shell: bash
