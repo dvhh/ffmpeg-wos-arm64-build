@@ -120,6 +120,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: vmaf-${{ matrix.host }}
+      - name: get winpthreads
+        uses: actions/download-artifact@v4
+        with:
+          name: winpthreads-${{ matrix.host }}
 
       - name: extract achives
         run: |
@@ -130,6 +134,7 @@ jobs:
           tar xvzf ogg-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
           tar xvzf vorbis-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
           tar xvzf vmaf-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
+          tar xvzf winpthreads-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
       - uses: actions/checkout@v4
         with:
           repository: FFmpeg/FFmpeg
@@ -158,7 +163,8 @@ jobs:
             --enable-gpl \
             --enable-nonfree \
             --enable-libvorbis \
-            --enable-version3 --enable-libvmaf 
+            --enable-version3 --enable-libvmaf \
+            --disable-w32threads --enable-pthreads
           make -j16
           make install
       - name: archive
