@@ -14,7 +14,7 @@ inputs:
     description: target directory
 
 runs:
-  type: composite
+  using: composite
   steps:
     - name: download
       uses: actions/download-artifact@v4
