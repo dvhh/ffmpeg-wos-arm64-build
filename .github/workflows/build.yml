@@ -55,7 +55,9 @@ jobs:
           name: ${{matrix.depends}}-${{ matrix.host }}
         if: ${{matrix.depends != null}}
       - name: unpack dependency
-        run: tar xvzf ${{matrix.depends}}-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
+        run: |
+          mkdir -p ${{ github.workspace }}
+          tar xvzf ${{matrix.depends}}-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
         if: ${{matrix.depends != null}}
       - uses: actions/checkout@v4
         with:
