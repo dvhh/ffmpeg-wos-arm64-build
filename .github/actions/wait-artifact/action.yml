@@ -11,7 +11,9 @@ inputs:
   token:
     required: true
     description: github rest api token
-
+  timeout:
+    required: false
+    default: 120
 runs:
   using: composite
   steps:
@@ -23,8 +25,16 @@ runs:
       shell: bash
     - name: wait
       run: |
+        start="$(date +%s)"
+        end="$(( start + ${{inputs.timeout}} ))"
         while true
         do
+          current="$(date +%s)"
+          if [ $current -gt $end ]
+          then
+            >&2 echo "exceed timeout"
+            exit 1
+          fi
           curl -sf -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{inputs.token}}" -H "X-GitHub-Api-Version: 2022-11-28" \
           "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts" |\
             jq '.' > result.json
