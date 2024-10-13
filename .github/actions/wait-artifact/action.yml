@@ -33,7 +33,7 @@ runs:
             sleep 10
             continue
           fi
-          if [ -z "$(jq --arg artifact "${{inputs.artifact}}" '.artifacts | select( .name == $artifact) ' result.json)" ]
+          if [ -z "$(jq --arg artifact "${{inputs.artifact}}" '.artifacts[] | select( .name == $artifact) ' result.json)" ]
           then
             sleep 10
             continue
