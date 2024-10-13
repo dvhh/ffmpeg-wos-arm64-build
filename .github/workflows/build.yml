@@ -27,9 +27,10 @@ jobs:
             repository: xiph/ogg
             ref: v1.3.5
           ## TODO(dvhh) need to wait for ogg
-          #- name: vorbis
-          #  repository: xiph/vorbis
-          #  ref: v1.3.7
+          - name: vorbis
+            repository: xiph/vorbis
+            ref: v1.3.7
+            depends: ogg
 
           ## TODO(dvhh) WIP
           # - name: vmaf
@@ -40,6 +41,11 @@ jobs:
       image: mstorsjo/llvm-mingw:20241001
     steps:
       - uses: actions/checkout@v4
+      - name: wait for dependencies
+        uses: ./.github/actions/wait-artifact
+        with:
+          name: ${{matrix.depends}}
+        if: ${{matrix.depends != null}}
       - uses: actions/checkout@v4
         with:
           repository: ${{ matrix.repository }}
