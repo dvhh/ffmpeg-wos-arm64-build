@@ -55,6 +55,7 @@ runs:
       if: ${{ inputs.download }}
       shell: bash
       run: |
+        echo ${{ inputs.download }}
         curl -sf \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{inputs.token}}" \
