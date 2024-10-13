@@ -64,7 +64,7 @@ runs:
         if read url
         then
           echo $url
-          curl -H "Authorization: Bearer ${{inputs.token}}" -svL $url -o artifacts.zip
+          curl -H "Authorization: Bearer ${{inputs.token}}" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" -svL $url -o artifacts.zip
           unzip artifacts.zip
           rm artifacts.zip
         else
