@@ -1,0 +1,26 @@
+---
+name: extract-artifact
+description: download and extract artifact
+
+inputs:
+  name:
+    type: string
+    required: true
+    description: artifact name
+  target:
+    type: string
+    required: false
+    default: .
+    description: target directory
+
+runs:
+  type: composite
+  steps:
+    - name: download
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.name }}
+    - name: extract
+      run: |
+        mkdir -p "${{ inputs.target }}"
+        tar xvzf "${{ inputs.name }}" -C "${{ inputs.target }}"

@@ -99,9 +99,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: get sdl2
-        uses: actions/download-artifact@v4
+        uses: ./.github/actions/extract-artifact
         with:
           name: sdl2-${{ matrix.host }}
+          target: ${{ github.workspace }}
       - name: get x264
         uses: actions/download-artifact@v4
         with:
@@ -130,7 +131,6 @@ jobs:
       - name: extract achives
         run: |
           mkdir -p ${{ github.workspace }}
-          tar xvzf sdl2-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
           tar xvzf x264-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
           tar xvzf x265-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
           tar xvzf ogg-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
