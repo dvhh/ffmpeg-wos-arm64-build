@@ -17,6 +17,7 @@ jobs:
           - ogg
           - vorbis
           - vmaf
+          - winpthreads
         host:
           - aarch64-w64-mingw32
         include:
@@ -35,6 +36,8 @@ jobs:
           - name: vmaf
             repository: Netflix/vmaf
             ref: v3.0.0
+            depends: winpthreads
+          - name: winpthreads
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
