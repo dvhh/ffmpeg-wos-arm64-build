@@ -24,4 +24,4 @@ runs:
       shell: bash
       run: |
         mkdir -p "${{ inputs.target }}"
-        tar xvzf "${{ inputs.name }}" -C "${{ inputs.target }}"
+        tar xvzf "${{ inputs.name }}.tar.gz" -C "${{ inputs.target }}"
