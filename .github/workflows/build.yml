@@ -27,7 +27,6 @@ jobs:
           - name: ogg
             repository: xiph/ogg
             ref: v1.3.5
-          ## TODO(dvhh) need to wait for ogg
           - name: vorbis
             repository: xiph/vorbis
             ref: v1.3.7
@@ -159,7 +158,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ffmpeg-${{ matrix.host }}
-          path: ffmpeg-${{ matrix.os}}-${{ matrix.arch }}.zip
+          path: ffmpeg-${{ matrix.os }}-${{ matrix.arch }}.zip
   update-release:
     strategy:
       matrix:
@@ -178,7 +177,7 @@ jobs:
       - uses: IsaacShelton/update-existing-release@v1.3.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          files: ffmpeg-${{ matrix.os}}-${{ matrix.arch }}.zip
+          files: ffmpeg-${{ matrix.os }}-${{ matrix.arch }}.zip
   cleanup:
     runs-on: ubuntu-latest
     needs:
