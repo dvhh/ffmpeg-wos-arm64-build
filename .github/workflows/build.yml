@@ -41,6 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: wait for dependencies
+        timeout-minutes: 3
         uses: ./.github/actions/wait-artifact
         with:
           artifact: ${{matrix.depends}}-${{ matrix.host }}
