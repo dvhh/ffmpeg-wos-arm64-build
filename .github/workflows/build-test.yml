@@ -1,0 +1,54 @@
+---
+name: test build stub
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        host:
+          - aarch64-w64-mingw32
+        include:
+          - name: vmaf
+            repository: Netflix/vmaf
+            ref: v3.0.0
+    runs-on: ubuntu-latest
+    container:
+      image: mstorsjo/llvm-mingw:20241001
+    steps:
+      - uses: actions/checkout@v4
+      - name: wait for dependencies
+        timeout-minutes: 3
+        uses: ./.github/actions/wait-artifact
+        with:
+          artifact: ${{matrix.depends}}-${{ matrix.host }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          download: false
+        if: ${{matrix.depends != null}}
+      - name: download dependency
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{matrix.depends}}-${{ matrix.host }}
+        if: ${{matrix.depends != null}}
+      - name: unpack dependency
+        run: |
+          mkdir -p ${{ github.workspace }}
+          tar xvzf ${{matrix.depends}}-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
+        if: ${{matrix.depends != null}}
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repository }}
+          path: ${{ matrix.name }}
+          ref: ${{ matrix.ref }}
+        if: ${{ matrix.repository != null }}
+      - name: build
+        run: bash scripts/build-${{ matrix.name }}.sh "${{ github.workspace }}/local" "${{ matrix.host }}"
+        shell: bash
+      - name: archive
+        uses: ./.github/actions/archive
+        with:
+          base-path: ${{ github.workspace }}
+          source-path: local
+          output-path: ${{ matrix.name }}-${{ matrix.host }}.tar.gz
