@@ -16,6 +16,7 @@ jobs:
           - x265
           - ogg
           - vorbis
+          - vamf
         host:
           - aarch64-w64-mingw32
         include:
@@ -31,11 +32,9 @@ jobs:
             repository: xiph/vorbis
             ref: v1.3.7
             depends: ogg
-
-          ## TODO(dvhh) WIP
-          # - name: vmaf
-          #  repository: Netflix/vmaf
-          #  ref: v3.0.0
+          - name: vmaf
+            repository: Netflix/vmaf
+            ref: v3.0.0
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
@@ -92,6 +91,7 @@ jobs:
       image: mstorsjo/llvm-mingw:20241001
     steps:
       - uses: actions/checkout@v4
+
       - name: get sdl2
         uses: actions/download-artifact@v4
         with:
@@ -112,6 +112,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: vorbis-${{ matrix.host }}
+      - name: get vamf
+        uses: actions/download-artifact@v4
+        with:
+          name: vamf-${{ matrix.host }}
+
       - name: extract achives
         run: |
           mkdir -p ${{ github.workspace }}
@@ -120,6 +125,7 @@ jobs:
           tar xvzf x265-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
           tar xvzf ogg-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
           tar xvzf vorbis-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
+          tar xvzf vamf-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
       - uses: actions/checkout@v4
         with:
           repository: FFmpeg/FFmpeg
