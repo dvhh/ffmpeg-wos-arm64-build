@@ -19,8 +19,8 @@ runs:
   steps:
     - name: setup
       run: |
-        apt update -q
-        apt install -qy jq curl
+        apt update -qq
+        apt install -qqy jq curl
       shell: bash
     - name: wait
       run: |
@@ -64,7 +64,7 @@ runs:
         if read url
         then
           echo $url
-          curl -H "Authorization: Bearer ${{inputs.token}}" -sv $url -o artifacts.zip
+          curl -H "Authorization: Bearer ${{inputs.token}}" -svL $url -o artifacts.zip
           unzip artifacts.zip
           rm artifacts.zip
         else
