@@ -46,6 +46,7 @@ jobs:
         uses: ./.github/actions/wait-artifact
         with:
           name: ${{matrix.depends}}
+          token: ${{ secrets.GITHUB_TOKEN }}
         if: ${{matrix.depends != null}}
       - uses: actions/checkout@v4
         with:
