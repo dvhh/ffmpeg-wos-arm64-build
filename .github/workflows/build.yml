@@ -108,6 +108,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ogg-${{ matrix.host }}
+      - name: get vorbis
+        uses: actions/download-artifact@v4
+        with:
+          name: vorbis-${{ matrix.host }}
       - name: extract achives
         run: |
           mkdir -p ${{ github.workspace }}
@@ -115,6 +119,7 @@ jobs:
           tar xvzf x264-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
           tar xvzf x265-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
           tar xvzf ogg-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
+          tar xvzf vorbis-${{ matrix.host }}.tar.gz -C ${{ github.workspace }}
       - uses: actions/checkout@v4
         with:
           repository: FFmpeg/FFmpeg
