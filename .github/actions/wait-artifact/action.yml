@@ -43,7 +43,7 @@ runs:
             sleep 10
             continue
           fi
-          if [ -z "$(jq --arg artifact "${{inputs.artifact}}" '.artifacts[] | select( .name == $artifact) ' result.json)" ]
+          if [ -z "$(jq --arg artifact "${{ inputs.artifact }}" '.artifacts[] | select( .name == $artifact) ' result.json)" ]
           then
             sleep 10
             continue
@@ -52,3 +52,19 @@ runs:
         done
         rm result.json
       shell: bash
+    - name: download
+      if: ${{ inputs.download }}
+      shell: bash
+      run: |
+        curl -sf \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{inputs.token}}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts" |\
+        jq --arg artifact "${{ inputs.artifact }}" '.artifacts[] | select( .name == $artifact) | .archive_download_url' |\
+        if read url
+        then
+          curl -s url | unzip -
+        else
+          exit 1
+        fi
