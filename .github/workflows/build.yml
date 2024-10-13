@@ -132,7 +132,7 @@ jobs:
             --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig \
             --cross-prefix=${{ matrix.host }}- \
             --arch=${{ matrix.arch }} \
-            --target-os=${{ matrix.os }} [
+            --target-os=${{ matrix.os }} \
             --enable-sdl \
             --disable-doc \
             --prefix=${{ github.workspace }}/local \
