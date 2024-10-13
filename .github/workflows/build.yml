@@ -15,6 +15,7 @@ jobs:
           - x264
           - x265
           - ogg
+          - vorbis
         host:
           - aarch64-w64-mingw32
         include:
