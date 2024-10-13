@@ -21,6 +21,7 @@ runs:
       with:
         name: ${{ inputs.name }}
     - name: extract
+      shell: bash
       run: |
         mkdir -p "${{ inputs.target }}"
         tar xvzf "${{ inputs.name }}" -C "${{ inputs.target }}"
