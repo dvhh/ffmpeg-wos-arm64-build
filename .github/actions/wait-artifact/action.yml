@@ -2,7 +2,7 @@
 name: wait-artifact
 description: wait and download named artifact
 inputs:
-  name:
+  artifact:
     required: true
     description: name of the artifact to wait and optionally download
   download:
@@ -27,13 +27,13 @@ runs:
         do
           curl -sf -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{inputs.token}}" -H "X-GitHub-Api-Version: 2022-11-28" \
           "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts" |\
-            jq --arg "${{inputs.name}}" '.' > result.json
+            jq '.' > result.json
           if [ "$(jq '.total_count')" -eq 0 ]
           then
             sleep 10
             continue
           fi
-          if [ -z "$(jq --args name "${{inputs.name}}" '.artifacts | select( .name == $name) ')" ]
+          if [ -z "$(jq --arg artifact "${{inputs.artifact}}" '.artifacts | select( .name == $artifact) ')" ]
           then
             sleep 10
             continue
