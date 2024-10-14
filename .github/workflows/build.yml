@@ -51,6 +51,9 @@ jobs:
           - name: frei0r
             repository: dyne/frei0r
             rev: v2.3.3
+          - name: lame
+            repository: lameproject/lame
+            rev: master
           # - name: libass
           #  repository: libass/libass
           #  ref: 0.17.3
@@ -205,7 +208,8 @@ jobs:
             --disable-w32threads --enable-pthreads \
             --enable-libaom \
             --enable-libfdk-aac \
-            --enable-frei0r
+            --enable-frei0r \
+            --enable-libmp3lame
           make -j16
           make install
       - name: archive
