@@ -21,6 +21,7 @@ jobs:
           - aom
           - aac
           - frei0r
+          - lame
           # - libass
           # - freetype
         host:
@@ -124,57 +125,6 @@ jobs:
             tar xvzf "${archive}" -C "${{ github.workspace }}"
           done
           
-      - name: get sdl2
-        uses: ./.github/actions/extract-artifact
-        with:
-          name: sdl2-${{ matrix.host }}
-          target: ${{ github.workspace }}
-      - name: get x264
-        uses: ./.github/actions/extract-artifact
-        with:
-          name: x264-${{ matrix.host }}
-          target: ${{ github.workspace }}
-      - name: get x265
-        uses: ./.github/actions/extract-artifact
-        with:
-          name: x265-${{ matrix.host }}
-          target: ${{ github.workspace }}
-      - name: get ogg
-        uses: ./.github/actions/extract-artifact
-        with:
-          name: ogg-${{ matrix.host }}
-          target: ${{ github.workspace }}
-      - name: get vorbis
-        uses: ./.github/actions/extract-artifact
-        with:
-          name: vorbis-${{ matrix.host }}
-          target: ${{ github.workspace }}
-      - name: get vamf
-        uses: ./.github/actions/extract-artifact
-        with:
-          name: vmaf-${{ matrix.host }}
-          target: ${{ github.workspace }}
-      - name: get winpthreads
-        uses: ./.github/actions/extract-artifact
-        with:
-          name: winpthreads-${{ matrix.host }}
-          target: ${{ github.workspace }}
-      - name: get aom
-        uses: ./.github/actions/extract-artifact
-        with:
-          name: aom-${{ matrix.host }}
-          target: ${{ github.workspace }}
-      - name: get aac
-        uses: ./.github/actions/extract-artifact
-        with:
-          name: aac-${{ matrix.host }}
-          target: ${{ github.workspace }}
-      - name: get frei0r
-        uses: ./.github/actions/extract-artifact
-        with:
-          name: frei0r-${{ matrix.host }}
-          target: ${{ github.workspace }}
-
       - uses: actions/checkout@v4
         with:
           repository: FFmpeg/FFmpeg
