@@ -1,10 +1,4 @@
-#!/bin/bash
-
-set -euxo pipefail
-
-OUTPUT="${1}"
-HOST="${2}"
-mkdir -p "${OUTPUT}"
+c
 #mkdir build
 #cd build
 cd libass

@@ -22,6 +22,7 @@ jobs:
           - aac
           - frei0r
           - libass
+          - freetype
         host:
           - aarch64-w64-mingw32
         include:
@@ -53,6 +54,8 @@ jobs:
           - name: libass
             repository: libass/libass
             ref: 0.17.3
+            depends: freetype
+          - name: freetype
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
