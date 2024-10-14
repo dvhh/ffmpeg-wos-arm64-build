@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Vorbis codec
+# AAC Codec
+
 set -euxo pipefail
 
 OUTPUT="${1}"
 HOST="${2}"
 mkdir -p "${OUTPUT}"
-cd vorbis
 ./autogen.sh
-./configure --host="${HOST}" --prefix="${OUTPUT}"
+./configure --host="${HOST}" --prefix="${OUTPUT}" --with-pic --disable-example
 make -j16
 make install

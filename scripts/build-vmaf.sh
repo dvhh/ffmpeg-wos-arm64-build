@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# VMAF Library
 set -euxo pipefail
 
 OUTPUT="${1}"
