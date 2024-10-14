@@ -51,11 +51,11 @@ jobs:
           - name: frei0r
             repository: dyne/frei0r
             rev: v2.3.3
-          - name: libass
-            repository: libass/libass
-            ref: 0.17.3
-            depends: freetype
-          - name: freetype
+          # - name: libass
+          #  repository: libass/libass
+          #  ref: 0.17.3
+          #  depends: freetype
+          #- name: freetype
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
