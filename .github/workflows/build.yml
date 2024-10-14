@@ -35,8 +35,25 @@ jobs:
           ./configure --host=aarch64-w64-mingw32 --prefix=${{ github.workspace }}/local --enable-pic --enable-lto --cross-prefix=aarch64-w64-mingw32- --enable-shared --enable-static
           make -j16
           make install
-      - uses: actions/checkout@v3 
-      - uses: actions/checkout@v3 
+      - uses: actions/checkout@v3
+      - name: build x265
+        run: |
+          # env
+          # pwd
+          # ls
+          echo "${{ github.workspace }}"
+          echo "${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake"
+          ls "${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake"
+          apt update
+          apt install -qy cmake yasm cmake-curses-gui binutils-mingw-w64-x86-64
+          ln -s /usr/bin/x86_64-w64-mingw32-windres /bin/windres
+          git clone https://bitbucket.org/multicoreware/x265_git.git x265 -b stable
+          cd x265/build/linux
+          export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
+          cmake -DCMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/aarch64-w64-mingw32.cmake" -DCMAKE_INSTALL_PREFIX="${{ github.workspace }}/local" -DCMAKE_BUILD_TYPE=Release -DCMAKE_ASM_NASM_FLAGS=-w-macro-params-legacy ../../source
+          make -j16
+          make install          
+      - uses: actions/checkout@v3
         with:
           repository: FFmpeg/FFmpeg
           path: ffmpeg
@@ -53,7 +70,7 @@ jobs:
           
           cd ffmpeg
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
-          ./configure --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local --disable-static --enable-shared --enable-libx264 --enable-gpl --enable-nonfree
+          ./configure --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig --cross-prefix=aarch64-w64-mingw32- --arch=arm64 --target-os=mingw32 --enable-sdl --disable-doc --prefix=${{ github.workspace }}/local --disable-static --enable-shared --enable-libx264 --enable-libx265 --enable-gpl --enable-nonfree
           
           make -j16
           make install
