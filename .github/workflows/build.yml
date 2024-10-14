@@ -21,8 +21,8 @@ jobs:
           - aom
           - aac
           - frei0r
-          - libass
-          - freetype
+          # - libass
+          # - freetype
         host:
           - aarch64-w64-mingw32
         include:
