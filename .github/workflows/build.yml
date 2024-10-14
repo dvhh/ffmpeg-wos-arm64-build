@@ -137,6 +137,7 @@ jobs:
           cd ffmpeg
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
           export CFLAGS="-I${{ github.workspace }}/local/include"
+          set -x
           ./configure \
             --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config \
             --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig \
@@ -159,6 +160,7 @@ jobs:
             --enable-libfdk-aac \
             --enable-frei0r \
             --enable-libmp3lame
+          set +x
           make -j16
           make install
       - name: archive
