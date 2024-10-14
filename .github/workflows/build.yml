@@ -117,10 +117,9 @@ jobs:
       - name: download all artifacts
         uses: actions/download-artifact@v4
         with:
-          path: ${GITHUB_WORKSPACE}
       - name: extract all dependencies
         run: |
-          ls *-${{ matrix.host }}.tar.gz | while read archive
+          find -iname "*-${{ matrix.host }}.tar.gz" | while read archive
           do
             tar xvzf "${archive}" -C "${{ github.workspace }}"
           done
