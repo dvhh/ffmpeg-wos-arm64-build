@@ -20,6 +20,7 @@ jobs:
           - winpthreads
           - aom
           - aac
+          - frei0r
         host:
           - aarch64-w64-mingw32
         include:
@@ -45,6 +46,9 @@ jobs:
           - name: aac
             repository: mstorsjo/fdk-aac
             rev: v2.0.3
+          - name: frei0r
+            repository: dyne/frei0r
+            rev: v2.3.3
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
@@ -144,6 +148,11 @@ jobs:
         with:
           name: aac-${{ matrix.host }}
           target: ${{ github.workspace }}
+      - name: get frei0r
+        uses: ./.github/actions/extract-artifact
+        with:
+          name: frei0r-${{ matrix.host }}
+          target: ${{ github.workspace }}
 
       - uses: actions/checkout@v4
         with:
@@ -176,7 +185,8 @@ jobs:
             --enable-version3 --enable-libvmaf \
             --disable-w32threads --enable-pthreads \
             --enable-libaom \
-            --enable-libfdk-aac
+            --enable-libfdk-aac \
+            --enable-frei0r
           make -j16
           make install
       - name: archive
