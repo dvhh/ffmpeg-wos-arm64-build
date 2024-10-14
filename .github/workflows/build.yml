@@ -136,6 +136,7 @@ jobs:
           
           cd ffmpeg
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
+          export LDFLAGS="-L${{ github.workspace }}/local/lib"
           export CFLAGS="-I${{ github.workspace }}/local/include"
           sh -x ./configure \
             --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config \
