@@ -24,6 +24,7 @@ jobs:
           - lame
           - opus
           - theora
+          - vpx
           # - libass
           # - freetype
         host:
@@ -64,6 +65,7 @@ jobs:
             repository: xiph/theora
             rev: v1.1.1
             depends: ogg
+          - name: vpx
           # - name: libass
           #  repository: libass/libass
           #  ref: 0.17.3
@@ -170,7 +172,8 @@ jobs:
             --enable-frei0r \
             --enable-libmp3lame \
             --enable-libopus \
-            --enable-libtheora
+            --enable-libtheora \
+            --disable-libvpx
           make -j16
           make install
       - name: archive
