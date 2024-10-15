@@ -11,6 +11,6 @@ ln -s "/opt/llvm-mingw/bin/${HOST}-windres" /bin/windres
 git clone https://bitbucket.org/multicoreware/x265_git.git x265 -b stable
 cd x265/build/linux
 export PKG_CONFIG_LIBDIR="${OUTPUT}/lib/pkgconfig"
-cmake -DCMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/host/${HOST}.cmake" -DCMAKE_INSTALL_PREFIX="${OUTPUT}" -DCMAKE_BUILD_TYPE=Release -DENABLE_CLI=OFF -DCMAKE_ASM_NASM_FLAGS=-w-macro-params-legacy ../../source
+cmake -DCMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/hosts/${HOST}.cmake" -DCMAKE_INSTALL_PREFIX="${OUTPUT}" -DCMAKE_BUILD_TYPE=Release -DENABLE_CLI=OFF -DCMAKE_ASM_NASM_FLAGS=-w-macro-params-legacy ../../source
 make -j16
 make install
