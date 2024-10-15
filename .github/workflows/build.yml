@@ -22,6 +22,7 @@ jobs:
           - aac
           - frei0r
           - lame
+          - opus
           # - libass
           # - freetype
         host:
@@ -55,6 +56,9 @@ jobs:
           - name: lame
             repository: lameproject/lame
             rev: master
+          - name: opus
+            repository: xiph/opus
+            rev: v1.5.2
           # - name: libass
           #  repository: libass/libass
           #  ref: 0.17.3
@@ -159,7 +163,8 @@ jobs:
             --enable-libaom \
             --enable-libfdk-aac \
             --enable-frei0r \
-            --enable-libmp3lame
+            --enable-libmp3lame \
+            --enable-libopus
           make -j16
           make install
       - name: archive

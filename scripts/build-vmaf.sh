@@ -11,7 +11,7 @@ apt install -qy meson ninja-build nasm
 pushd vmaf
 ls libvmaf
 meson setup \
-  --cross-file "${GITHUB_WORKSPACE}/${HOST}.txt" \
+  --cross-file "${GITHUB_WORKSPACE}/hosts/${HOST}.txt" \
   --includedir "${OUTPUT}/include" \
   --libdir "${OUTPUT}/lib" \
   --prefix "${OUTPUT}" \
