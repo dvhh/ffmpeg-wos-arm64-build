@@ -10,6 +10,6 @@ cd vpx
 export PKG_CONFIG_LIBDIR="${OUTPUT}/lib/pkgconfig"
 
 TARGET="$(grep "${HOST}" "${GITHUB_WORKSPACE}/hosts/host2target.txt" | cut -d " " -f 2)"
-./configure --target="${TARGET}" --prefix="${OUTPUT}" --with-pic --enable-pic --disable-examples --disable-tools --disable-tools --disable-tools --disable-tools
+./configure --target="${TARGET}" --prefix="${OUTPUT}" --enable-pic --disable-examples --disable-tools --disable-tools --disable-tools --disable-tools
 make -j16
 make install
