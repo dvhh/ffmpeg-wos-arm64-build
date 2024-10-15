@@ -6,6 +6,7 @@ OUTPUT="${1}"
 HOST="${2}"
 mkdir -p "${OUTPUT}"
 cd opus
+./autogen.sh
 ./configure --host="${HOST}" --prefix="${OUTPUT}" --with-pic --disable-extra-programs
 make -j16
 make install
