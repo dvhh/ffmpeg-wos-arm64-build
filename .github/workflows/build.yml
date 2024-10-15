@@ -166,7 +166,7 @@ jobs:
             --enable-libx264 \
             --enable-libx265 \
             --enable-libvorbis \
-            --enable-version3 --enable-libvmaf \
+            --enable-libvmaf \
             --disable-w32threads --enable-pthreads \
             --enable-libaom \
             --enable-libfdk-aac \
