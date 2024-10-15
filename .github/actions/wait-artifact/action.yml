@@ -9,7 +9,8 @@ inputs:
     required: false
     default: false
   token:
-    required: true
+    required: false
+    default: ${{ github.token }}
     description: github rest api token
 runs:
   using: composite
@@ -44,6 +45,7 @@ runs:
       if: ${{ inputs.download == true }}
       shell: bash
       run: |
+        exit 1 # do not work for now
         echo ${{ inputs.download }}
         curl -sf \
           -H "Accept: application/vnd.github+json" \

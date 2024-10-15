@@ -81,8 +81,6 @@ jobs:
         uses: ./.github/actions/wait-artifact
         with:
           artifact: ${{matrix.depends}}-${{ matrix.host }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          download: false
         if: ${{matrix.depends != null}}
       - name: extract dependency
         uses: ./.github/actions/extract-artifact
@@ -113,6 +111,7 @@ jobs:
   build-ffmpeg:
     strategy:
       matrix:
+        variant: non-free
         include:
           - host: aarch64-w64-mingw32
             arch: arm64
@@ -155,6 +154,9 @@ jobs:
             --cross-prefix=${{ matrix.host }}- \
             --arch=${{ matrix.arch }} \
             --target-os=${{ matrix.os }} \
+            --enable-gpl \
+            --enable-version3 \            
+            --enable-nonfree \
             --enable-sdl \
             --disable-doc \
             --prefix=${{ github.workspace }}/local \
@@ -162,8 +164,6 @@ jobs:
             --enable-shared \
             --enable-libx264 \
             --enable-libx265 \
-            --enable-gpl \
-            --enable-nonfree \
             --enable-libvorbis \
             --enable-version3 --enable-libvmaf \
             --disable-w32threads --enable-pthreads \
@@ -213,10 +213,5 @@ jobs:
     needs:
       - update-release
     steps:
-      - name: list
-        id: list_artifacts
-        uses: MichaelMelena/list-artifacts@v1
       - name: cleanup
-        uses: MichaelMelena/remove-artifacts@v1
-        with:
-          artifacts: ${{ steps.list_artifacts.outputs.artifacts }}
+        uses: ./.github/actions/cleanup-artifact
