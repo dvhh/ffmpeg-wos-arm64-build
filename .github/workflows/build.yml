@@ -111,7 +111,8 @@ jobs:
   build-ffmpeg:
     strategy:
       matrix:
-        variant: non-free
+        variant:
+          - non-free
         include:
           - host: aarch64-w64-mingw32
             arch: arm64
