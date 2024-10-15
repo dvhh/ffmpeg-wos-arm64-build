@@ -149,7 +149,7 @@ jobs:
           export PKG_CONFIG_LIBDIR=${{ github.workspace }}/local/lib/pkgconfig
           export LDFLAGS="-L${{ github.workspace }}/local/lib"
           export CFLAGS="-I${{ github.workspace }}/local/include"
-          ./configure \
+          sh -x ./configure \
             --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config \
             --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig \
             --cross-prefix=${{ matrix.host }}- \
@@ -157,6 +157,7 @@ jobs:
             --target-os=${{ matrix.os }} \
             --enable-gpl \
             --enable-nonfree \
+            --enable-version3 \
             --enable-sdl \
             --disable-doc \
             --prefix=${{ github.workspace }}/local \
@@ -165,7 +166,7 @@ jobs:
             --enable-libx264 \
             --enable-libx265 \
             --enable-libvorbis \
-            --enable-version3 --enable-libvmaf \
+            --enable-libvmaf \
             --disable-w32threads --enable-pthreads \
             --enable-libaom \
             --enable-libfdk-aac \
