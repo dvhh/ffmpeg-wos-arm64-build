@@ -23,6 +23,7 @@ jobs:
           - frei0r
           - lame
           - opus
+          - theora
           # - libass
           # - freetype
         host:
@@ -59,6 +60,9 @@ jobs:
           - name: opus
             repository: xiph/opus
             rev: v1.5.2
+          - name: theora
+            repository: xiph/theora
+            rev: v1.1.1
           # - name: libass
           #  repository: libass/libass
           #  ref: 0.17.3
@@ -164,7 +168,8 @@ jobs:
             --enable-libfdk-aac \
             --enable-frei0r \
             --enable-libmp3lame \
-            --enable-libopus
+            --enable-libopus \
+            --enable-libtheora
           make -j16
           make install
       - name: archive
