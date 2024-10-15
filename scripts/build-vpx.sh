@@ -7,7 +7,6 @@ HOST="${2}"
 mkdir -p "${OUTPUT}"
 git clone https://chromium.googlesource.com/webm/libvpx --depth 1 -b v1.14.1 vpx
 cd vpx
-./autogen.sh
 export PKG_CONFIG_LIBDIR="${OUTPUT}/lib/pkgconfig"
 
 TARGET="$(grep "${HOST}" "${GITHUB_WORKSPACE}/hosts/host2target.txt" | cut -d " " -f 2)"
