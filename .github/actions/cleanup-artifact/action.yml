@@ -11,8 +11,8 @@ runs:
   steps:
     - name: setup
       run: |
-        apt update -qq
-        apt install -qqy jq curl
+        sudo apt update -qq
+        sudo apt install -qqy jq curl
       shell: bash
     - name: get artifacts list
       shell: bash
