@@ -9,11 +9,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: setup
-      run: |
-        sudo apt update -qq
-        sudo apt install -qqy jq curl
-      shell: bash
     - name: get artifacts list
       shell: bash
       run: |
