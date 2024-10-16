@@ -214,5 +214,6 @@ jobs:
     needs:
       - update-release
     steps:
+      - uses: actions/checkout@v4
       - name: cleanup
         uses: ./.github/actions/cleanup-artifact
