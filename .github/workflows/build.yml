@@ -26,7 +26,7 @@ jobs:
           - theora
           - vpx
           # - libass
-          # - freetype
+          - freetype
         host:
           - aarch64-w64-mingw32
         include:
@@ -70,7 +70,7 @@ jobs:
           #  repository: libass/libass
           #  ref: 0.17.3
           #  depends: freetype
-          #- name: freetype
+          - name: freetype
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
