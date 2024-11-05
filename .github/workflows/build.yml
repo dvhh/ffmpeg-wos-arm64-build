@@ -25,7 +25,7 @@ jobs:
           - opus
           - theora
           - vpx
-          # - libass
+          - libass
           - freetype
         host:
           - aarch64-w64-mingw32
