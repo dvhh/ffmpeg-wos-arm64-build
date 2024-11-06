@@ -9,6 +9,7 @@ apt update
 apt install -qy meson ninja-build nasm
 mkdir build
 cd build
+export PKG_CONFIG_LIBDIR="${OUTPUT}/lib/pkgconfig"
 meson setup \
   --cross-file "${GITHUB_WORKSPACE}/hosts/${HOST}.txt" \
   --includedir "${OUTPUT}/include" \
