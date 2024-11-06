@@ -71,7 +71,7 @@ jobs:
           - name: libass
             repository: libass/libass
             ref: 0.17.3
-            depends: fribidi
+            depends: harbuzz
           - name: freetype
           - name: fribidi
             repository: fribidi/fribidi
