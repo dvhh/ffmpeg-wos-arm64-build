@@ -28,6 +28,7 @@ jobs:
           - libass
           - freetype
           - fribidi
+          - harfbuzz
         host:
           - aarch64-w64-mingw32
         include:
@@ -77,6 +78,10 @@ jobs:
             ref: v1.0.16
             # do not really dependon freetype but help for piggybacking the artifact
             depends: freetype
+          - name: harfbuzz
+            repository: harfbuzz/harfbuzz
+            ref: 10.1.0
+            depends: fribidi
     runs-on: ubuntu-latest
     container:
       image: mstorsjo/llvm-mingw:20241001
