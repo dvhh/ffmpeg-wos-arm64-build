@@ -8,6 +8,7 @@ mkdir -p "${OUTPUT}"
 apt update
 apt install -qy meson ninja-build nasm
 mkdir build
+cd build
 # cd fribidi
 # ./autogen.sh
 # ./configure --host="${HOST}" --prefix="${OUTPUT}" --with-pic --disable-example
