@@ -15,6 +15,7 @@ meson setup \
   --includedir "${OUTPUT}/include" \
   --libdir "${OUTPUT}/lib" \
   --prefix "${OUTPUT}" \
+  --pkg-config-path "${OUTPUT}/lib/pkgconfig" \
   -Dfreetype=enabled \
   -Dglib=disabled \
   -Dgobject=disabled \
