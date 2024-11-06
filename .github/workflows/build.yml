@@ -27,7 +27,7 @@ jobs:
           - vpx
           - libass
           - freetype
-          - fridbi
+          - fribidi
         host:
           - aarch64-w64-mingw32
         include:
@@ -72,7 +72,7 @@ jobs:
             ref: 0.17.3
             depends: fridbi
           - name: freetype
-          - name: fridbi
+          - name: fribidi
             repository: fribidi/fribidi
             ref: v1.0.16
             # do not really dependon freetype but help for piggybacking the artifact
