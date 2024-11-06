@@ -7,7 +7,8 @@ HOST="${2}"
 mkdir -p "${OUTPUT}"
 apt update
 apt install -qy meson ninja-build nasm
-cd fribidi
+mkdir build
+# cd fribidi
 # ./autogen.sh
 # ./configure --host="${HOST}" --prefix="${OUTPUT}" --with-pic --disable-example
 # make -j16
@@ -20,6 +21,7 @@ meson setup \
   --buildtype=release \
   -Dbin=false \
   -Ddocs=false \
-  -Dtests=false 
+  -Dtests=false \
+  ../fribidi
 ninja -j$(nproc)
 ninja install
