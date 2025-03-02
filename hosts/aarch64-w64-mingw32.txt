@@ -3,10 +3,10 @@ c = 'aarch64-w64-mingw32-gcc'
 cpp = 'aarch64-w64-mingw32-g++'
 ar = 'aarch64-w64-mingw32-ar'
 windres = 'aarch64-w64-mingw32-windres'
-ranlib = '/usr/bin/x86_64-w64-mingw32-ranlib'
+ranlib = 'x86_64-w64-mingw32-ranlib'
 strip = 'aarch64-w64-mingw32-strip'
 # exe_wrapper = 'wine64'
-pkgconfig = '/usr/bin/x86_64-w64-mingw32-pkg-config'
+pkgconfig = 'x86_64-w64-mingw32-pkg-config'
 
 [host_machine]
 system = 'windows'
