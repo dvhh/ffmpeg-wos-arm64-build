@@ -1,5 +1,7 @@
 # ffmpeg-wos-arm64-build
 
+Please find better build with [BtbN/FFmpeg-Builds](https://github.com/BtbN/FFmpeg-Builds) this repository was created at a time before this repository started providing winarm64 build.
+
 TL;DR [Download zip](https://github.com/dvhh/ffmpeg-wos-arm64-build/releases/download/main/ffmpeg-wos-arm64.zip)
 
 Weekly build for ffmpeg windows arm64
