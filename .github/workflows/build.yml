@@ -161,6 +161,7 @@ jobs:
           export LDFLAGS="-L${{ github.workspace }}/local/lib"
           export CFLAGS="-I${{ github.workspace }}/local/include"
           sh -x ./configure \
+            --pkg-config-flags="--static" \
             --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config \
             --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig \
             --cross-prefix=${{ matrix.host }}- \
@@ -172,8 +173,6 @@ jobs:
             --enable-sdl \
             --disable-doc \
             --prefix=${{ github.workspace }}/local \
-            --disable-static \
-            --enable-shared \
             --enable-libx264 \
             --enable-libx265 \
             --enable-libvorbis \
