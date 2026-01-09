@@ -162,7 +162,7 @@ jobs:
           export CFLAGS="-I${{ github.workspace }}/local/include"
           sh -x ./configure \
             --pkg-config-flags="--static" \
-            --pkg-config=/usr/bin/x86_64-pc-linux-gnu-pkg-config \
+            --pkg-config=/usr/bin/pkg-config \
             --pkgconfigdir=${{ github.workspace }}/local/lib/pkgconfig \
             --cross-prefix=${{ matrix.host }}- \
             --arch=${{ matrix.arch }} \
