@@ -6,7 +6,7 @@ windres = 'aarch64-w64-mingw32-windres'
 ranlib = 'aarch64-w64-mingw32-ranlib'
 strip = 'aarch64-w64-mingw32-strip'
 # exe_wrapper = 'wine64'
-# pkg-config = '/usr/bin/x86_64-pc-linux-gnu-pkg-config'
+pkg-config = '/usr/bin/pkg-config'
 
 [host_machine]
 system = 'windows'
