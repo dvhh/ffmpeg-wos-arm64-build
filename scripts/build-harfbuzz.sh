@@ -11,7 +11,7 @@ mkdir build
 cd build
 export PKG_CONFIG_LIBDIR="${OUTPUT}/lib/pkgconfig"
 export PKG_CONFIG_PATH="${OUTPUT}/lib/pkgconfig"
-pkg-config freetype2
+pkg-config --modversion freetype2
 meson setup \
   --cross-file "${GITHUB_WORKSPACE}/hosts/${HOST}.txt" \
   --includedir "${OUTPUT}/include" \
